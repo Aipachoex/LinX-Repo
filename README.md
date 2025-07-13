@@ -1,1 +1,1 @@
-Recently got a new machine that i'm testing linux mint on and i've started to code/program on it while I also learn how to use linux properly.
+This repo is dedicated to the bash scripts/projects I have created or are in the middle of working on.
