@@ -1,245 +1,108 @@
 #!/bin/bash
 
-# scene functions
+# Reusable room scene function
+room_scene() {
+    local coin="$1"               # e.g., "bronze", "silver", etc.
+    local next_north="$2"         # function to call when going north
+    local next_east="$3"          # function to call when going east
+    local next_west="$4"          # function to call when going west
 
-north_door() {
-	clear
-	echo "You walk through the North door and it quickly slams behind you, it is now locked."
-	sleep 2
-	echo -e "\nThe room looks similar to the previous room with three more doors, however there is something in the middle of the room."
-	sleep 2
-	echo -e "\nOn closer inspection the item appears to be a small bronze coin."
-	sleep 2
-	while true; do
-		echo -e "\nWill you pick it up or leave it?"
-		read -rp "Type yes or no: " broncoin
-		if [[ "${broncoin,,}" == "yes" ]]; then
-			sleep 2
-			echo -e "\nYou pick up the bronze coin and put it in your pocket."
-			break
-		elif [[ "${broncoin,,}" == "no" ]]; then
-			sleep 2
-			echo -e "\nYou leave the bronze coin where it is."
-			break
-		else
-			sleep 2
-			echo -e "\nShall we try that again?"
-			sleep 2
-		fi
-	done	
-	echo -e "\nYou look back at the 3 new doors before you, where would you like to go now?"
+    clear
+    echo "You walk through the door and it quickly slams behind you. It is now locked."
     sleep 2
-    echo -e "\nNorth, East, or West?"
+    echo -e "\nThe room looks similar to the previous one, with three more doors. In the center, something glimmers..."
     sleep 2
+    echo -e "\nOn closer inspection, it's a small $coin coin resting on a stone pedestal."
+    sleep 2
+
     while true; do
-        read -rp "\nPlease type in a direction: " dir2
-        case "${dir2,,}" in
-            "north")
-            #north_bronze function here
-            break
-            ;;
-            "east")
-            #east_bronze function here
-            break
-            ;;
-            "west")
-            #west_bronze function here
-            break
-            ;;
+        echo -e "\nWill you pick it up or leave it?"
+        read -rp "Type yes or no: " choice
+        case "${choice,,}" in
+            "yes")
+                echo -e "\nYou pick up the $coin coin and tuck it into your pouch."
+                break
+                ;;
+            "no")
+                echo -e "\nYou decide to leave the $coin coin where it lies."
+                break
+                ;;
             *)
-            echo -e "\nLet's try that again shall we?"
-            ;;
-    	esac
+                echo -e "\nPlease answer with yes or no."
+                sleep 1
+                ;;
+        esac
+    done
+
+    echo -e "\nThree doors await you: North, East, and West."
+    sleep 1
+
+    while true; do
+        read -rp "Which direction do you choose? " direction
+        case "${direction,,}" in
+            "north")
+                $next_north
+                break
+                ;;
+            "east")
+                $next_east
+                break
+                ;;
+            "west")
+                $next_west
+                break
+                ;;
+            *)
+                echo -e "\nThat's not a valid direction. Try North, East, or West."
+                ;;
+        esac
     done
 }
 
+# Starter rooms
+north_door() {
+    room_scene "bronze" "north_bronze" "east_bronze" "west_bronze"
+}
 
 south_door() {
-	clear
-	echo "You walk through the South door and it quickly slams behind you, it is now locked."
-	sleep 2
-	echo -e "\nThe room looks similar to the previous room with three more doors, however, there is something in the middle of the room."
-	sleep 2
-	echo -e "\nOn closer inspection the item appears to be a small silver coin."
-	sleep 2
-	while true; do
-		echo -e "\nWill you pick it up or leave it?"
-		read -rp "Type yes or no: " silvcoin
-		if [[ "${silvcoin,,}" == "yes" ]]; then
-			sleep 2
-			echo -e "\nYou pick up the silver coin and put it in your pocket."
-			break
-		elif [[ "${silvcoin,,}" == "no" ]]; then
-			sleep 2
-			echo -e "\nYou leave the silver coin where it is."
-			break
-		else
-			sleep 2
-			echo -e "\nShall we try that again?"
-			sleep 2
-		fi
-	done
-	echo -e "\nYou look back at the 3 new doors before you, where would you like to go now?"
-    	sleep 2
-    	echo -e "\nNorth, East, or West?"
-    	sleep 2
-    	while true; do
-        read -rp "\nPlease type in a direction: " dir3
-        case "${dir3,,}" in
-            "north")
-            #north_silver function here
-            break
-            ;;
-            "east")
-            #east_silver function here
-            break
-            ;;
-            "west")
-            #west_silver function here
-            break
-            ;;
-            *)
-            echo -e "\nLet's try that again shall we?"
-            ;;
-    	esac
-    done
-
+    room_scene "silver" "north_silver" "east_silver" "west_silver"
 }
 
 east_door() {
-	clear
-	echo "You walk through the East door and it quickly slams behind you, it is now locked."
-	sleep 2
-	echo -e "\nThe room looks similar to the previous room with three more doors, however there is something in the middle of the room."
-	sleep 2
-	echo -e "\nOn closer inspection the item appears to be a small gold coin."
-	sleep 2
-	while true; do
-		echo -e "\nWill you pick it up or leave it?"
-		read -rp "Type yes or no: " goldcoin
-		if [[ "${goldcoin,,}" == "yes" ]]; then
-			sleep 2
-			echo -e "\nYou pick up the gold coin and put it in your pocket."
-			break
-		elif [[ "${goldcoin,,}" == "no" ]]; then
-			sleep 2
-			echo -e "\nYou leave the gold coin where it is."
-			break
-		else
-			sleep 2
-			echo -e "\nShall we try that again?"
-			sleep 2
-		fi
-	done	
-	echo -e "\nYou look back at the 3 new doors before you, where would you like to go now?"
-    sleep 2
-    echo -e "\nNorth, East, or West?"
-    sleep 2
-    while true; do
-        read -rp "\nPlease type in a direction: " dir4
-        case "${dir4,,}" in
-            "north")
-            #north_gold function here
-            break
-            ;;
-            "east")
-            #east_gold function here
-            break
-            ;;
-            "west")
-            #west_gold function here
-            break
-            ;;
-            *)
-            echo -e "\nLet's try that again shall we?"
-            ;;
-    	esac
-    done
+    room_scene "gold" "north_gold" "east_gold" "west_gold"
 }
 
 west_door() {
-	clear
-	echo "You walk through the West door and it quickly slams behind you, it is now locked."
-	sleep 2
-	echo -e "\nThe room looks similar to the previous room with three more doors, however there is something in the middle of the room."
-	sleep 2
-	echo -e "\nOn closer inspection the item appears to be a small platinum coin."
-	sleep 2
-	while true; do
-		echo -e "\nWill you pick it up or leave it?"
-		read -rp "Type yes or no: " platcoin
-		if [[ "${platcoin,,}" == "yes" ]]; then
-			sleep 2
-			echo -e "\nYou pick up the platinum coin and put it in your pocket."
-			break
-		elif [[ "${platcoin,,}" == "no" ]]; then
-			sleep 2
-			echo -e "\nYou leave the platinum coin where it is."
-			break
-		else
-			sleep 2
-			echo -e "\nShall we try that again?"
-			sleep 2
-		fi
-	done	
-	echo -e "\nYou look back at the 3 new doors before you, where would you like to go now?"
-    sleep 2
-    echo -e "\nNorth, East, or West?"
-    sleep 2
-    while true; do
-        read -rp "\nPlease type in a direction: " dir5
-        case "${dir5,,}" in
-            "north")
-            #north_platinum function here
-            break
-            ;;
-            "east")
-            #east_platinum function here
-            break
-            ;;
-            "west")
-            #west_platinum function here
-            break
-            ;;
-            *)
-            echo -e "\nLet's try that again shall we?"
-            ;;
-    	esac
-    done
+    room_scene "platinum" "north_platinum" "east_platinum" "west_platinum"
 }
 
-intro_scene() {
-	echo "Let us begin your journey."
-	sleep 2
-	echo -e "\nYou stand alone in an empty room surrounded by 4 white walls."
-	sleep 2
-	echo -e "\nA door starts to slowly materialize on each wall."
-	sleep 2
-	echo -e "\nWhere would you like to go? North, South, East, or West?"
-	sleep 2
-	while true; do
-		read -rp "Please type in a direction: " direction
-		case "${direction,,}" in
-			"north")
-			north_door
-			break
-			;;
-			"south")
-			south_door
-			break
-			;;
-			"east")
-			east_door
-			break
-			;;
-			"west")
-			west_door
-			break
-			;;
-			*)
-			echo -e "/nNot sure what you're trying to do, so I guess we'll just stand here forever then."
-			break
-			;;
-		esac
-	done
-}
+# Starting point
+echo -e "\nYou awaken in a dim chamber lit by a flickering torch on the wall..."
+sleep 2
+echo -e "\nThere are four doors before you: North, South, East, and West."
+sleep 2
+
+while true; do
+    read -rp "Which door do you enter? " choice
+    case "${choice,,}" in
+        "north")
+            north_door
+            break
+            ;;
+        "south")
+            south_door
+            break
+            ;;
+        "east")
+            east_door
+            break
+            ;;
+        "west")
+            west_door
+            break
+            ;;
+        *)
+            echo -e "\nTry choosing one of the four directions: North, South, East, or West."
+            ;;
+    esac
+done
