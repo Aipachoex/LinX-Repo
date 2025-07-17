@@ -12,7 +12,7 @@ North_door() {
 	sleep 2
 	while true; do
 		echo -e "\nWill you pick it up or leave it?"
-		read -p "Type yes or no: " broncoin
+		read -rp "Type yes or no: " broncoin
 		if [[ "${broncoin,,}" == "yes" ]]; then
 			sleep 2
 			echo -e "\nYou pick up the bronze coin and put it in your pocket."
@@ -25,9 +25,10 @@ North_door() {
 			sleep 2
 			echo -e "\nShall we try that again?"
 			sleep 2
+		fi
 	done
 	
-
+}
 
 intro_scene() {
 	echo "Let us begin your journey."
@@ -39,7 +40,7 @@ intro_scene() {
 	echo -e "\nWhere would you like to go? North, South, East, or West?"
 	sleep 2
 	while true; do
-		read -p "Please type in a direction: " direction
+		read -rp "Please type in a direction: " direction
 		case "${direction,,}" in
 			"north")
 			#North_door function here
