@@ -2,7 +2,7 @@
 
 # scene functions
 
-North_door() {
+north_door() {
 	clear
 	echo -e "\nYou walk through the North door and it quickly slams behind you, it is now locked."
 	sleep 2
@@ -30,6 +30,35 @@ North_door() {
 	
 }
 
+
+south_door() {
+	clear
+	echo "You walk through the South door and it quickly slams behind you, it is now locked."
+	sleep 2
+	echo -e "\nThe room looks similar to the previous room with three more doors, however, there is something in the middle of the room."
+	sleep 2
+	echo -e "\nOn closer inspection the item appears to be a small silver coin."
+	sleep 2
+	while true; do
+		echo -e "\nWill you pick it up or leave it?"
+		read -rp "Type yes or no: " silvcoin
+		if [[ "${silvcoin,,}" == "yes" ]]; then
+			sleep 2
+			echo -e "\nYou pick up the silver coin and put it in your pocket."
+			break
+		elif [[ "${silvcoin,,}" == "no" ]]; then
+			sleep 2
+			echo -e "\nYou leave the silver coin where it is."
+			break
+		else
+			sleep 2
+			echo -e "\nShall we try that again?"
+			sleep 2
+		fi
+	done
+}
+
+
 intro_scene() {
 	echo "Let us begin your journey."
 	sleep 2
@@ -43,11 +72,11 @@ intro_scene() {
 		read -rp "Please type in a direction: " direction
 		case "${direction,,}" in
 			"north")
-			#North_door function here
+			north_door
 			break
 			;;
 			"south")
-			#South_door function here
+			south_door
 			break
 			;;
 			"east")
