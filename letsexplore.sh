@@ -77,6 +77,7 @@ west_door() {
 }
 
 # Starting point
+clear
 echo -e "\nYou awaken in a dim chamber lit by a flickering torch on the wall..."
 sleep 2
 echo -e "\nThere are four doors before you: North, South, East, and West."
