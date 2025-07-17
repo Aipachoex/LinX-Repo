@@ -59,6 +59,19 @@ room_scene() {
     done
 }
 
+
+# North rooms
+
+
+# South rooms
+
+
+# West rooms
+
+
+# East rooms
+
+
 # Starter rooms
 north_door() {
     room_scene "bronze" "north_bronze" "east_bronze" "west_bronze"
